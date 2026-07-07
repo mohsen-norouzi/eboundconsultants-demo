@@ -82,19 +82,8 @@ function App() {
 		const el = tiltRef.current;
 		if (!section || !el) return;
 
-		const maxTilt = 5; // degrees
-		const maxShift = 13; // px
+		const maxShift = 18; // px
 
-		gsap.set(el, { transformPerspective: 1200 });
-
-		const rotateYTo = gsap.quickTo(el, "rotationY", {
-			duration: 1.2,
-			ease: "power3.out",
-		});
-		const rotateXTo = gsap.quickTo(el, "rotationX", {
-			duration: 1.2,
-			ease: "power3.out",
-		});
 		const xTo = gsap.quickTo(el, "x", { duration: 1.2, ease: "power3.out" });
 		const yTo = gsap.quickTo(el, "y", { duration: 1.2, ease: "power3.out" });
 
@@ -103,15 +92,11 @@ function App() {
 			const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
 			const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
 
-			rotateYTo(nx * maxTilt);
-			rotateXTo(-ny * maxTilt);
-			xTo(-nx * maxShift);
-			yTo(-ny * maxShift);
+			xTo(nx * maxShift);
+			yTo(ny * maxShift);
 		};
 
 		const handleLeave = () => {
-			rotateYTo(0);
-			rotateXTo(0);
 			xTo(0);
 			yTo(0);
 		};
@@ -139,18 +124,15 @@ function App() {
 			ref={heroRef}
 			className="relative min-h-screen w-full overflow-hidden bg-cream font-sans"
 		>
-			<div
-				className="pointer-events-none absolute inset-y-0 right-0 w-[70%] overflow-hidden"
-				style={{ perspective: "1200px" }}
-			>
+			<div className="pointer-events-none absolute inset-y-0 right-0 w-[75%] overflow-hidden">
 				<div
 					ref={tiltRef}
-					className="absolute inset-[-8%] will-change-transform"
+					className="absolute inset-[-4%] will-change-transform"
 				>
 					<img
-						src="/img/bg-3.png"
+						src="/img/maze-3.png"
 						alt=""
-						className="h-full w-full object-cover object-left"
+						className="h-full w-full object-cover object-right"
 						style={{
 							maskImage:
 								"linear-gradient(to right, transparent 0%, black 60%)",
